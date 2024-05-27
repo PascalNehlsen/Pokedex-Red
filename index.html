@@ -6,18 +6,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokédex Red</title>
     <link rel="stylesheet" href="./src/style/style.css">
+    <link rel="stylesheet" href="./src/style/cardColor.css">
     <script src="./src/script/script.js"></script>
     <script src="./src/script/template.js"></script>
     <link rel="icon" href="./src/img/favicon.ico">
 </head>
 
-<body onload="includeHTML()">
+<body onload="includeHTML(), init()">
 
     <!-- HEADER -->
     <div w3-include-html="./src/templates/header.html"></div>
 
     <!-- CONTENT -->
-
+    <div class="content" id="content"></div>
 
     <!-- FOOTER -->
     <div w3-include-html="./src/templates/footer.html"></div>

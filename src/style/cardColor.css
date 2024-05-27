@@ -1,0 +1,79 @@
+/* GLOBAL */
+:root {
+  --grass: #78c850;
+  --fire: #f08030;
+  --water: #6890f0;
+  --bug: #a8b820;
+  --normal: #a8a878;
+  --poison: #a040a0;
+  --psychic: #f85888;
+  --fighting: #c03028;
+  --rock: #b8a038;
+  --electric: #f8d030;
+  --ground: #e0c068;
+  --ice: #98d8d8;
+  --dragon: #7038f8;
+  --fairy: #f0c5c4;
+  --ghost: #8971af;
+}
+
+/* CARD COLORS */
+.dragon {
+  background-color: var(--dragon);
+}
+
+.ice {
+  background-color: var(--ice);
+}
+
+.ghost {
+  background-color: var(--ghost);
+}
+
+.rock {
+  background-color: var(--rock);
+}
+
+.psychic {
+  background-color: var(--psychic);
+}
+
+.fighting {
+  background-color: var(--fighting);
+}
+
+.fairy {
+  background-color: var(--fairy);
+}
+
+.grass {
+  background-color: var(--grass);
+}
+
+.fire {
+  background-color: var(--fire);
+}
+
+.water {
+  background-color: var(--water);
+}
+
+.bug {
+  background-color: var(--bug);
+}
+
+.normal {
+  background-color: var(--normal);
+}
+
+.poison {
+  background-color: var(--poison);
+}
+
+.electric {
+  background-color: var(--electric);
+}
+
+.ground {
+  background-color: var(--ground);
+}

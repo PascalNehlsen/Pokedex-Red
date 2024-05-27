@@ -1,15 +1,88 @@
 /* GLOBAL */
 :root {
-  --red: #e60012;
+  --background-red: #e60012;
+  --global-font: 'Helvetica';
+  --backup-font: sans-serif;
 }
 
 body {
   box-sizing: border-box;
   margin: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--global-font), var(--backup-font);
+}
+
+h1 {
+  margin: 0;
 }
 
 /* HEADER */
+.header {
+  height: 100px;
+  background-color: var(--background-red);
+  margin-bottom: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+}
 
 /* CONTENT */
+.content {
+  flex: 1;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+}
+
+.pokeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 10px;
+  width: 150px;
+  overflow: hidden;
+}
+
+.pokeCard:hover {
+  cursor: pointer;
+}
+
+.pokeCard img {
+  margin-top: 10px;
+  width: 125px;
+  height: 125px;
+  transition: transform 225ms ease-in-out;
+}
+
+.pokeCard:hover img {
+  transform: scale(1.05);
+}
+
+.pokeCardHeader {
+  display: flex;
+  height: 20px;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+}
+
+.seperator {
+  height: 1px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+  width: 100%;
+  background-color: bisque;
+}
 
 /* FOOTER */
+.footer {
+  height: 100px;
+  background-color: var(--background-red);
+  margin-top: 20px;
+}
