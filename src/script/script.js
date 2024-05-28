@@ -1,17 +1,45 @@
 // GLOBAL
 const POKE_URL = 'https://pokeapi.co/api/v2';
 const RED_URL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151';
+let currentIndex = 0;
+const imagesPerLoad = 20;
+let pokeNames = [];
+
+// FUNCTION SCROLL TO BOTTOM WHEN USER CLICKS BUTTON
+function scrollToBottom() {
+  setTimeout(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, '10');
+  document.getElementById('showAmount').innerHTML = currentIndex + ' / 151 Pokemon';
+}
+
+// SEARCH INPUT
+function searchPokemon() {
+  let input = document.getElementById('search');
+  content = document.getElementById('content');
+  card = content.getElementsByTagName('h3');
+  for (i = 0; i < card.length; i++) {
+    if (input.value == card[i].innerHTML) {
+      console.log('right');
+    } else {
+      console.log('wrong');
+    }
+  }
+}
 
 // ONLOAD FUNCTION
 function init() {
+  let pokeCard = document.getElementById('content');
+  pokeCard.innerHTML = '';
   loadAndRenderData();
 }
 
 // LOAD AND RENDER DATA
 async function loadAndRenderData() {
   let data = await loadData();
+  pokeNames = data;
   if (data) {
-    render(data.results);
+    renderCard(data.results);
   } else {
     console.error('No Data to render');
   }
@@ -32,14 +60,27 @@ async function loadData() {
 }
 
 // RENDER MY POKEMON
-async function render(pokemonList) {
+async function renderCard(pokemonList) {
   let pokeCard = document.getElementById('content');
-  pokeCard.innerHTML = '';
-  for (let i = 0; i < pokemonList.length; i++) {
+  let endIndex = currentIndex + imagesPerLoad;
+  for (let i = currentIndex; i < endIndex && i < pokemonList.length; i++) {
     let pokemon = pokemonList[i]['name'];
     let pokemonUrl = pokemonList[i]['url'];
     let pokemonDetails = await fetchPokemonDetails(pokemonUrl);
-    pokeCard.innerHTML += renderHTML(pokemon, pokemonDetails, i);
+    let types = pokemonDetails.types.map((type) => type.type.name).join(', ');
+    pokeCard.innerHTML += renderHTML(pokemon, pokemonDetails, types);
+  }
+  checkCurrentIndex();
+}
+
+// CHECK CURRENTINDEX
+function checkCurrentIndex() {
+  currentIndex += imagesPerLoad;
+  if (currentIndex <= 151) {
+    scrollToBottom();
+  } else {
+    currentIndex = 151;
+    scrollToBottom();
   }
 }
 
@@ -56,18 +97,4 @@ async function fetchPokemonDetails(url) {
     console.error('Fetch problem:', error);
     return '';
   }
-}
-
-// RENDER MY POKEMON HTML
-function renderHTML(pokemon, pokemonDetails) {
-  return /*html*/ `
-    <div class="pokeCard ${pokemonDetails.types[0].type.name}">
-    <div class="pokeCardHeader">
-        <h3>${pokemonDetails.name}</h3>
-    </div>
-        <img src="${pokemonDetails.sprites.other['dream_world'].front_default}" alt="${pokemon} picture"></img>
-        <div class="seperator"></div>
-        <span>ID: ${pokemonDetails.id}</span></div>
-    </div>
-    `;
 }

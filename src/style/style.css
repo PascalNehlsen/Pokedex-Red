@@ -1,8 +1,13 @@
 /* GLOBAL */
 :root {
   --background-red: #e60012;
+  --background-grey: #f5f5f5;
   --global-font: 'Helvetica';
   --backup-font: sans-serif;
+}
+
+* {
+  scroll-behavior: smooth;
 }
 
 body {
@@ -12,30 +17,42 @@ body {
   display: flex;
   flex-direction: column;
   font-family: var(--global-font), var(--backup-font);
+  background-color: var(--background-grey);
 }
 
 h1 {
   margin: 0;
 }
 
+.padding {
+  padding-left: 20px;
+  padding-right: 20px;
+}
+
 /* HEADER */
 .header {
   height: 100px;
   background-color: var(--background-red);
-  margin-bottom: 20px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  gap: 30px;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 999;
 }
 
 /* CONTENT */
 .content {
+  margin-top: 120px;
+  padding-bottom: 120px;
   flex: 1;
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 10px;
+  gap: 15px;
+  align-items: center;
 }
 
 .pokeCard {
@@ -44,9 +61,13 @@ h1 {
   align-items: center;
   border-radius: 10px;
   padding: 10px;
-  margin: 10px;
-  width: 150px;
+  width: 160px;
   overflow: hidden;
+  height: 200px;
+}
+
+.pokeCard span:first-of-type {
+  margin-bottom: 5px;
 }
 
 .pokeCard:hover {
@@ -55,9 +76,10 @@ h1 {
 
 .pokeCard img {
   margin-top: 10px;
-  width: 125px;
-  height: 125px;
+  width: 100px;
+  height: 100px;
   transition: transform 225ms ease-in-out;
+  filter: drop-shadow(4px 0px 7px #000000);
 }
 
 .pokeCard:hover img {
@@ -67,6 +89,7 @@ h1 {
 .pokeCardHeader {
   display: flex;
   height: 20px;
+  margin-top: 5px;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -75,14 +98,58 @@ h1 {
 .seperator {
   height: 1px;
   margin-top: 5px;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
   width: 100%;
   background-color: bisque;
 }
 
 /* FOOTER */
 .footer {
+  position: fixed;
+  bottom: 0;
+  right: 0;
+  left: 0;
   height: 100px;
-  background-color: var(--background-red);
-  margin-top: 20px;
+  background: rgb(255, 255, 255);
+  background: radial-gradient(circle, rgba(0, 0, 0, 1) 10%, #e60012 16%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
+
+.footer img {
+  position: absolute;
+  height: 250px;
+  margin-bottom: 20px;
+}
+
+.footer span {
+  font-size: 24px;
+  position: absolute;
+  bottom: 0;
+  font-weight: bold;
+}
+
+.loadBtn {
+  background-color: transparent;
+  border: none;
+  color: white;
+  padding: 23px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  border-radius: 50%;
+  position: absolute;
+  top: 5px;
+  z-index: 999;
+}
+
+.loadBtn:hover {
+  border: 8px solid #fff;
+  cursor: pointer;
+}
+
+/* MEDIA QUERIES */
