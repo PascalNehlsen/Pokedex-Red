@@ -20,13 +20,29 @@ body {
   background-color: var(--background-grey);
 }
 
-h1 {
+h2 {
   margin: 0;
+  padding-left: 5px;
+  padding-top: 2px;
+  text-transform: capitalize;
+}
+
+h3 {
+  height: 20px;
+  margin: 0;
+  padding-top: 5px;
+  width: 100%;
+  text-align: center;
+  text-transform: capitalize;
 }
 
 .padding {
   padding-left: 20px;
   padding-right: 20px;
+}
+
+.d-none {
+  display: none;
 }
 
 /* HEADER */
@@ -41,6 +57,10 @@ h1 {
   right: 0;
   left: 0;
   z-index: 999;
+}
+
+.header img {
+  height: 90px;
 }
 
 /* CONTENT */
@@ -86,18 +106,9 @@ h1 {
   transform: scale(1.05);
 }
 
-.pokeCardHeader {
-  display: flex;
-  height: 20px;
-  margin-top: 5px;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-}
-
 .seperator {
   height: 1px;
-  margin-top: 5px;
+  margin-top: 10px;
   margin-bottom: 10px;
   width: 100%;
   background-color: bisque;
@@ -150,6 +161,129 @@ h1 {
 .loadBtn:hover {
   border: 8px solid #fff;
   cursor: pointer;
+}
+
+/* OPEN CARD */
+.popUp {
+  background-color: rgba(0, 0, 0, 0.7);
+  position: fixed;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.cardContainer {
+  height: 500px;
+  width: 400px;
+  border-radius: 10px;
+  margin-left: 20px;
+  margin-right: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: rgb(102, 102, 102);
+  background: linear-gradient(
+    27deg,
+    rgba(102, 102, 102, 1) 0%,
+    rgba(255, 255, 255, 1) 47%,
+    rgba(102, 102, 102, 1) 100%
+  );
+}
+
+.largeCard {
+  z-index: 999;
+  height: 95%;
+  width: 95%;
+  border-radius: 10px;
+}
+
+.largeCard:hover {
+  cursor: pointer;
+}
+
+.largeCard img {
+  margin-top: 10px;
+  width: 200px;
+  height: 200px;
+  transition: transform 225ms ease-in-out;
+  filter: drop-shadow(4px 0px 7px #000000);
+}
+
+.basis {
+  display: flex;
+  background: rgb(102, 102, 102);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(102, 102, 102, 0.9) 58%,
+    rgba(102, 102, 102, 0.9) 100%
+  );
+  width: fit-content;
+  border-bottom-right-radius: 10px;
+  margin-left: -2px;
+  padding-right: 10px;
+  margin-top: -4px;
+  padding-left: 5px;
+  font-size: 12px;
+  font-weight: bold;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.16), 0 4px 6px rgba(0, 0, 0, 0.45);
+}
+
+.headlineContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.headlineContainer div:first-of-type {
+  display: flex;
+  align-items: start;
+}
+
+.kp span:first-of-type {
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.kp span:last-of-type {
+  font-size: 32px;
+  margin-right: 10px;
+  font-weight: bold;
+}
+
+.imgContainer {
+  display: flex;
+  justify-content: center;
+  padding-top: 20px;
+  width: 100%;
+}
+
+.pokeDescription {
+  height: 15px;
+  font-size: 12px;
+  gap: 10px;
+  font-weight: bold;
+  padding: 2px;
+  width: 100%;
+  background: rgb(102, 102, 102);
+  background: rgb(255, 255, 255);
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 1) 0%,
+    rgba(102, 102, 102, 0.9) 90%,
+    rgba(102, 102, 102, 0.9) 100%
+  );
+  border-top-left-radius: 10px;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 20px;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+  box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.16), 0 4px 6px rgba(0, 0, 0, 0.45);
 }
 
 /* MEDIA QUERIES */

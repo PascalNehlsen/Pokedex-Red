@@ -1,9 +1,8 @@
 // GLOBAL
-const POKE_URL = 'https://pokeapi.co/api/v2';
 const RED_URL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151';
 let currentIndex = 0;
 const imagesPerLoad = 20;
-let pokeNames = [];
+let pokeJson = [];
 
 // FUNCTION SCROLL TO BOTTOM WHEN USER CLICKS BUTTON
 function scrollToBottom() {
@@ -15,15 +14,16 @@ function scrollToBottom() {
 
 // SEARCH INPUT
 function searchPokemon() {
-  let input = document.getElementById('search');
-  content = document.getElementById('content');
-  card = content.getElementsByTagName('h3');
-  for (i = 0; i < card.length; i++) {
-    if (input.value == card[i].innerHTML) {
-      console.log('right');
-    } else {
-      console.log('wrong');
-    }
+  let inputField = document.getElementById('search');
+  let input = inputField.value.toLowerCase();
+  let cards = document.getElementById('content').getElementsByTagName('h3');
+
+  if (input.length < 3) {
+    Array.from(cards).forEach((card) => (card.parentNode.style.display = ''));
+  } else {
+    Array.from(cards).forEach((card) => {
+      card.parentNode.style.display = card.innerHTML.toLowerCase().includes(input) ? '' : 'none';
+    });
   }
 }
 
@@ -31,13 +31,13 @@ function searchPokemon() {
 function init() {
   let pokeCard = document.getElementById('content');
   pokeCard.innerHTML = '';
+  pokeJson = [];
   loadAndRenderData();
 }
 
 // LOAD AND RENDER DATA
 async function loadAndRenderData() {
   let data = await loadData();
-  pokeNames = data;
   if (data) {
     renderCard(data.results);
   } else {
@@ -67,8 +67,9 @@ async function renderCard(pokemonList) {
     let pokemon = pokemonList[i]['name'];
     let pokemonUrl = pokemonList[i]['url'];
     let pokemonDetails = await fetchPokemonDetails(pokemonUrl);
+    pokeJson.push(pokemonDetails);
     let types = pokemonDetails.types.map((type) => type.type.name).join(', ');
-    pokeCard.innerHTML += renderHTML(pokemon, pokemonDetails, types);
+    pokeCard.innerHTML += renderHTML(pokemon, pokemonDetails, types, i);
   }
   checkCurrentIndex();
 }
@@ -81,6 +82,8 @@ function checkCurrentIndex() {
   } else {
     currentIndex = 151;
     scrollToBottom();
+    document.getElementById('loadBtn').style.border = '8px solid #E41F25';
+    document.getElementById('loadBtn').style.cursor = 'unset';
   }
 }
 
@@ -97,4 +100,11 @@ async function fetchPokemonDetails(url) {
     console.error('Fetch problem:', error);
     return '';
   }
+}
+
+// OPEN LARGE CARD
+function openCard(i) {
+  document.body.style.overflow = 'hidden';
+  document.getElementById('popUpContainer').style.display = '';
+  document.getElementById('popUpContainer').innerHTML = openCardHTML(i);
 }
