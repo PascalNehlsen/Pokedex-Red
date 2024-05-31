@@ -12,10 +12,11 @@
     <link rel="icon" href="./src/img/favicon.ico">
 </head>
 
-<body onload="includeHTML(), init()">
+<body onload="includeHTML(), init(); return false;"">
 
     <!-- HEADER -->
-    <div w3-include-html="./src/templates/header.html"></div>
+    <div w3-include-html=" ./src/templates/header.html">
+    </div>
 
     <!-- LARGE CARDS -->
     <div class="popUp" id="popUpContainer" style="display: none;"></div>

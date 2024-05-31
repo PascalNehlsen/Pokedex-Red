@@ -63,6 +63,10 @@ h3 {
   height: 90px;
 }
 
+.header input {
+  padding: 10px;
+}
+
 /* CONTENT */
 .content {
   margin-top: 120px;
@@ -143,19 +147,15 @@ h3 {
 }
 
 .loadBtn {
-  background-color: transparent;
-  border: none;
-  color: white;
-  padding: 23px;
-  text-align: center;
-  text-decoration: none;
-  display: inline-block;
-  font-size: 16px;
-  margin: 4px 2px;
-  border-radius: 50%;
-  position: absolute;
-  top: 5px;
+  border-radius: 50px;
+  width: 60px;
+  height: 60px;
+  transition: 0.3s;
   z-index: 999;
+  margin-bottom: 21px;
+  font-size: 32px;
+  border-width: 0;
+  border: #000000;
 }
 
 .loadBtn:hover {
@@ -191,17 +191,33 @@ h3 {
     rgba(255, 255, 255, 1) 47%,
     rgba(102, 102, 102, 1) 100%
   );
+  perspective: 1000px;
+  position: relative;
+  cursor: pointer;
 }
 
 .largeCard {
-  z-index: 999;
   height: 95%;
   width: 95%;
+  position: absolute;
   border-radius: 10px;
+  transition: transform 0.5s ease-in-out;
+  backface-visibility: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
-.largeCard:hover {
-  cursor: pointer;
+.largeCard.back {
+  transform: rotateY(180deg);
+  width: 95%;
+  height: 95%;
+  z-index: 1;
+}
+
+.largeCard.front {
+  transform-origin: center;
+  z-index: 2;
 }
 
 .largeCard img {
@@ -210,6 +226,15 @@ h3 {
   height: 200px;
   transition: transform 225ms ease-in-out;
   filter: drop-shadow(4px 0px 7px #000000);
+  z-index: 999;
+}
+
+.cardContainer:hover .largeCard.front {
+  transform: rotateY(-180deg);
+}
+.cardContainer:hover .largeCard.back {
+  display: block;
+  transform: rotateY(0deg);
 }
 
 .basis {
@@ -237,6 +262,7 @@ h3 {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 105%;
 }
 
 .headlineContainer div:first-of-type {
@@ -265,12 +291,11 @@ h3 {
 .pokeDescription {
   height: 15px;
   font-size: 12px;
+  position: relative;
   gap: 10px;
   font-weight: bold;
   padding: 2px;
-  width: 100%;
-  background: rgb(102, 102, 102);
-  background: rgb(255, 255, 255);
+  width: 104%;
   background: linear-gradient(
     180deg,
     rgba(255, 255, 255, 1) 0%,
@@ -283,7 +308,65 @@ h3 {
   display: flex;
   justify-content: center;
   margin-top: 10px;
+  margin-bottom: 10px;
   box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.16), 0 4px 6px rgba(0, 0, 0, 0.45);
+}
+
+.frontAbility {
+  padding-left: 30px;
+  padding-right: 30px;
+  padding-top: 10px;
+  text-transform: capitalize;
+  height: 160px;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  line-height: 1.8;
+  gap: 10px;
+  text-align: center;
+}
+
+#backGif {
+  height: 60px;
+  width: 60px;
+  filter: unset;
+  padding-top: 20px;
+}
+
+#scream {
+  height: 20px;
+  width: 20px;
+  filter: unset;
+}
+
+.gifContainer {
+  display: flex;
+  align-items: end;
+  justify-content: center;
+  height: 100px;
+  width: 100%;
+  gap: 5px;
+  margin-bottom: 20px;
+}
+
+.hover {
+  font-weight: bold;
+  text-align: center;
+  font-size: 12px;
+  position: absolute;
+  bottom: -25px;
+}
+
+#myProgress {
+  width: 100%;
+  background-color: grey;
+}
+
+#myBar {
+  width: 1%;
+  height: 30px;
+  background-color: green;
 }
 
 /* MEDIA QUERIES */

@@ -4,6 +4,14 @@ let currentIndex = 0;
 const imagesPerLoad = 20;
 let pokeJson = [];
 
+// ONLOAD FUNCTION
+function init() {
+  let pokeCard = document.getElementById('content');
+  pokeCard.innerHTML = '';
+  pokeJson = [];
+  loadAndRenderData();
+}
+
 // FUNCTION SCROLL TO BOTTOM WHEN USER CLICKS BUTTON
 function scrollToBottom() {
   setTimeout(() => {
@@ -25,14 +33,6 @@ function searchPokemon() {
       card.parentNode.style.display = card.innerHTML.toLowerCase().includes(input) ? '' : 'none';
     });
   }
-}
-
-// ONLOAD FUNCTION
-function init() {
-  let pokeCard = document.getElementById('content');
-  pokeCard.innerHTML = '';
-  pokeJson = [];
-  loadAndRenderData();
 }
 
 // LOAD AND RENDER DATA
@@ -84,6 +84,7 @@ function checkCurrentIndex() {
     scrollToBottom();
     document.getElementById('loadBtn').style.border = '8px solid #E41F25';
     document.getElementById('loadBtn').style.cursor = 'unset';
+    document.getElementById('loadBtn').innerHTML = '';
   }
 }
 
@@ -102,9 +103,53 @@ async function fetchPokemonDetails(url) {
   }
 }
 
+// METER TO FEET AND INCH
+function convertMetersToFeetAndInches(meters) {
+  const cm = meters * 100;
+  const totalInches = cm / 2.54;
+  const feet = Math.floor(totalInches / 12);
+  const inches = Math.round(totalInches % 12);
+  return { feet, inches };
+}
+
 // OPEN LARGE CARD
 function openCard(i) {
   document.body.style.overflow = 'hidden';
   document.getElementById('popUpContainer').style.display = '';
-  document.getElementById('popUpContainer').innerHTML = openCardHTML(i);
+  let abilities = pokeJson[i].abilities.map((type) => type.ability.name).join('\n');
+  let feetAndInch = pokeJson[i].height / 10;
+  let height = convertMetersToFeetAndInches(feetAndInch);
+  document.getElementById('popUpContainer').innerHTML = openCardHTML(i, abilities, height);
+  document.getElementById('popUpContainer').addEventListener('click', closeCard);
+}
+
+// CLOSE LARGE CARD
+function closeCard(event) {
+  if (event.target.id === 'popUpContainer') {
+    document.body.style.overflow = '';
+    document.getElementById('popUpContainer').style.display = 'none';
+    document.getElementById('popUpContainer').innerHTML = '';
+  }
+}
+
+// NEXT LARGE CARD
+function nextCard(i) {
+  i++;
+  if (i >= pokeJson.length) {
+    i = 0;
+    openCard(i);
+  } else {
+    openCard(i);
+  }
+}
+
+// LAST LARGE CARD
+function lastCard(i) {
+  if (i == 0) {
+    i = pokeJson.length - 1;
+    openCard(i);
+  } else {
+    i--;
+    openCard(i);
+  }
 }
