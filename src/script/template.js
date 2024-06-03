@@ -34,7 +34,7 @@ function renderHTML(pokemon, pokemonDetails, types, i) {
         <img loading="lazy" src="${pokemonDetails.sprites.other['dream_world'].front_default}" alt="${pokemon} picture"></img>
         <div class="seperator"></div>
         <span>No: ${pokemonDetails.id}</span>
-        <span>${types}</span>
+        <div class="typesContainer">${types}</div>
     </div>
         `;
 }
@@ -44,8 +44,8 @@ function openCardHTML(i, abilities, height) {
   return /*html*/ `
     <a onclick="lastCard(${i}); return false;" href="#"><img src="./src/img/arrow-left.png" alt=""></a> 
 
-  <div class="cardContainer">
-    <div class="largeCard front ${pokeJson[i].types[0].type.name}">
+    <div class="cardContainer">
+    <div onmouseover="start(${i})" class="largeCard front ${pokeJson[i].types[0].type.name}">
         <div class="largeCard ${pokeJson[i].types[0].type.name}">
             <div class="headlineContainer">
                 <div>
@@ -77,17 +77,37 @@ function openCardHTML(i, abilities, height) {
     </div>
     <div class="largeCard back ${pokeJson[i].types[0].type.name}">
         <div class="largeCard ${pokeJson[i].types[0].type.name}">
-           <div class="gifContainer">
-              <img id="backGif" loading="lazy" src="${
-                pokeJson[i].sprites.other['showdown'].back_default
-              }" alt=""></img>
-              <img id="scream" src="./src/img/scream.png" alt="">
-           </div> 
-            <span><b><u>More Stats</u></b></span>
-              
-          </div>
+            <div class="gifContainer">
+                <img id="backGif" loading="lazy" src="${
+                  pokeJson[i].sprites.other['showdown'].back_default
+                }" alt=""></img>
+                <a href="#"><img id="scream" src="./src/img/scream.png" alt=""></a> 
+            </div>
+            <div class="barContainer">
+                  <span>Attack</span>
+                <div class="progress-bar" id="progress-bar-1">
+                  <div class="progress-bar-fill" id="progress-bar-fill-1"></div>
+                </div>
+                <span>Defense</span>
+                <div class="progress-bar" id="progress-bar-2">
+                  <div class="progress-bar-fill" id="progress-bar-fill-2"></div>
+                </div>
+                <span>Special-Attack</span>
+                <div class="progress-bar" id="progress-bar-3">
+                  <div class="progress-bar-fill" id="progress-bar-fill-3"></div>
+                </div>
+                <span>Special-Defense</span>
+                <div class="progress-bar" id="progress-bar-4">
+                  <div class="progress-bar-fill" id="progress-bar-fill-4"></div>
+                </div>
+                <span>Speed</span>
+                <div class="progress-bar" id="progress-bar-5">
+                  <div class="progress-bar-fill" id="progress-bar-fill-5"></div>
+                </div>
+            </div>
+        </div>
     </div>
-  </div>
+</div>
 
     <a onclick="nextCard(${i}); return false;" href="#"><img src="./src/img/arrow-right.png" alt=""></a> 
   `;

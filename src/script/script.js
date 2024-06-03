@@ -37,6 +37,7 @@ function searchPokemon() {
 
 // LOAD AND RENDER DATA
 async function loadAndRenderData() {
+  activateLoadAnimation();
   let data = await loadData();
   if (data) {
     renderCard(data.results);
@@ -68,7 +69,9 @@ async function renderCard(pokemonList) {
     let pokemonUrl = pokemonList[i]['url'];
     let pokemonDetails = await fetchPokemonDetails(pokemonUrl);
     pokeJson.push(pokemonDetails);
-    let types = pokemonDetails.types.map((type) => type.type.name).join(', ');
+    let types = pokemonDetails.types
+      .map((type) => `<span class="types">${type.type.name}</span>`)
+      .join('');
     pokeCard.innerHTML += renderHTML(pokemon, pokemonDetails, types, i);
   }
   checkCurrentIndex();
@@ -77,7 +80,9 @@ async function renderCard(pokemonList) {
 // CHECK CURRENTINDEX
 function checkCurrentIndex() {
   currentIndex += imagesPerLoad;
-  if (currentIndex <= 151) {
+  if (currentIndex == 20) {
+    document.getElementById('showAmount').innerHTML = currentIndex + ' / 151 Pokemon';
+  } else if (currentIndex > 20 && currentIndex <= 151) {
     scrollToBottom();
   } else {
     currentIndex = 151;
@@ -85,7 +90,9 @@ function checkCurrentIndex() {
     document.getElementById('loadBtn').style.border = '8px solid #E41F25';
     document.getElementById('loadBtn').style.cursor = 'unset';
     document.getElementById('loadBtn').innerHTML = '';
+    document.getElementById('loadBtn').disabled = true;
   }
+  disableLoadAnimation();
 }
 
 // FETCH DETAILED DATA FOR EACH POKEMON
@@ -132,6 +139,18 @@ function closeCard(event) {
   }
 }
 
+// DISABLE LOAD ANMIATION
+function disableLoadAnimation() {
+  document.body.style.overflow = '';
+  document.getElementById('loadAnimation').style.display = 'none';
+}
+
+// ACTIVATE LOAD ANIMATION
+function activateLoadAnimation() {
+  document.body.style.overflow = 'hidden';
+  document.getElementById('loadAnimation').style.display = '';
+}
+
 // NEXT LARGE CARD
 function nextCard(i) {
   i++;
@@ -152,4 +171,33 @@ function lastCard(i) {
     i--;
     openCard(i);
   }
+}
+
+// START FUNCTION ON HOVER LARGE CARD
+function start(i) {
+  startProgress('progress-bar-fill-1', pokeJson[i].stats[1].base_stat);
+  startProgress('progress-bar-fill-2', pokeJson[i].stats[2].base_stat);
+  startProgress('progress-bar-fill-3', pokeJson[i].stats[3].base_stat);
+  startProgress('progress-bar-fill-4', pokeJson[i].stats[4].base_stat);
+  startProgress('progress-bar-fill-5', pokeJson[i].stats[5].base_stat);
+}
+
+// FILL PROGRESS BAR
+function updateProgressBar(progress, progressBarFillId) {
+  const progressBarFill = document.getElementById(progressBarFillId);
+  progressBarFill.style.width = `${progress}%`;
+  progressBarFill.innerText = `${progress}`;
+}
+
+// UPDATE PROGRESS BAR
+function startProgress(progressBarFillId, stopPoint) {
+  let progress = 0;
+
+  const intervalId = setInterval(function () {
+    progress += 1;
+    updateProgressBar(progress, progressBarFillId);
+    if (progress >= stopPoint) {
+      clearInterval(intervalId);
+    }
+  }, 10);
 }
