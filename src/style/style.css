@@ -66,7 +66,6 @@ h3 {
   right: 0;
   left: 0;
   z-index: 999;
-  gap: 200px;
 }
 
 .header img {
@@ -161,13 +160,11 @@ h3 {
   right: 0;
   left: 0;
   height: 100px;
-  background: rgb(255, 255, 255);
-  background: radial-gradient(circle, rgba(0, 0, 0, 1) 10%, #e60012 16%);
+  background: var(--background-red);
   display: flex;
   align-items: center;
   justify-content: space-between;
   overflow: hidden;
-  padding-right: 120px;
 }
 
 .footerImage {
@@ -180,22 +177,37 @@ h3 {
   display: flex;
   width: 200px;
   height: 100px;
-  align-items: center;
+  align-items: start;
   justify-content: center;
   flex-direction: column;
   gap: 5px;
+  text-align: start;
 }
 
-.socialMedia {
+#socialMedia {
   display: flex;
   width: 200px;
   height: 100px;
   align-items: center;
   gap: 5px;
+  justify-content: end;
 }
 
-.socialMedia img {
-  height: 42px;
+#socialMedia img {
+  height: 35px;
+}
+
+#socialMedia img:hover {
+  height: 40px;
+}
+
+.owner a {
+  text-decoration: none;
+  color: #000;
+}
+
+.owner a:hover {
+  font-weight: bold;
 }
 
 .footerImage img {
@@ -221,6 +233,7 @@ h3 {
   margin-top: 10px;
   font-size: 32px;
   border-width: 0;
+  position: relative;
 }
 
 .footer div:last-of-type {
@@ -501,3 +514,73 @@ h3 {
 }
 
 /* MEDIA QUERIES */
+@media (max-width: 850px) {
+  .header img {
+    height: 50px;
+  }
+
+  .header input {
+    padding: 10px 15px;
+  }
+
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    height: unset;
+  }
+
+  .content {
+    margin-top: 180px;
+  }
+}
+
+@media (max-width: 650px) {
+  .footerImage img {
+    display: none;
+  }
+
+  .loadBtn {
+    margin-top: unset;
+  }
+
+  #socialMedia {
+    flex-direction: column;
+    align-items: end;
+  }
+
+  #socialMedia img {
+    height: 24px;
+  }
+
+  #socialMedia img:hover {
+    height: 26px;
+  }
+
+  .padding {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+
+  .footerImage {
+    height: 60px;
+    margin-bottom: 20px;
+  }
+
+  .footer span {
+    font-size: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .btnLeft img {
+    position: absolute;
+    top: 120px;
+    left: 10px;
+  }
+
+  .btnRight img {
+    position: absolute;
+    top: 120px;
+    right: 10px;
+  }
+}

@@ -15,8 +15,7 @@
 <body onload="includeHTML(), init(); return false;" style="overflow: hidden;">
 
     <!-- HEADER -->
-    <div w3-include-html=" ./src/templates/header.html">
-    </div>
+    <div w3-include-html="./src/templates/header.html"></div>
 
     <!-- LARGE CARDS -->
     <div class="popUp" id="popUpContainer" style="display: none;"></div>
@@ -25,7 +24,7 @@
     <div class="content padding" id="content"></div>
 
     <!-- LOAD ANIMATION -->
-    <div class="loadAnimationContainer" id="loadAnimation" style="">
+    <div class="loadAnimationContainer" id="loadAnimation">
         <svg id="pokeball" width="200px" height="200px" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <circle cx="50" cy="50" r="45" fill="white" stroke="black" stroke-width="5" />
             <path d="M 5,50 A 45,45 0 0 1 95,50" fill="red" stroke="black" stroke-width="5" />

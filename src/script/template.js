@@ -42,7 +42,7 @@ function renderHTML(pokemon, pokemonDetails, types, i) {
 // OPEN CARD HTML
 function openCardHTML(i, abilities, height) {
   return /*html*/ `
-    <a onclick="lastCard(${i}); return false;" href="#"><img src="./src/img/arrow-left.png" alt=""></a> 
+    <a class="btnLeft" onclick="lastCard(${i}); return false;" href="#"><img src="./src/img/arrow-left.png" alt=""></a> 
 
     <div class="cardContainer">
     <div onmouseover="start(${i})" class="largeCard front ${pokeJson[i].types[0].type.name}">
@@ -81,7 +81,7 @@ function openCardHTML(i, abilities, height) {
                 <img id="backGif" loading="lazy" src="${
                   pokeJson[i].sprites.other['showdown'].back_default
                 }" alt=""></img>
-                <a href="#"><img id="scream" src="./src/img/scream.png" alt=""></a> 
+                <a onclick="playPokeSound(${i}, event)" href="#"><img class="scream" id="scream" src="./src/img/scream.png" alt=""></a> 
             </div>
             <div class="barContainer">
                   <span>Attack</span>
@@ -109,6 +109,6 @@ function openCardHTML(i, abilities, height) {
     </div>
 </div>
 
-    <a onclick="nextCard(${i}); return false;" href="#"><img src="./src/img/arrow-right.png" alt=""></a> 
+    <a class="btnRight" onclick="nextCard(${i}); return false;" href="#"><img src="./src/img/arrow-right.png" alt=""></a> 
   `;
 }

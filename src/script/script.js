@@ -3,6 +3,7 @@ const RED_URL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151';
 let currentIndex = 0;
 const imagesPerLoad = 20;
 let pokeJson = [];
+let pokeSound = [];
 
 // ONLOAD FUNCTION
 function init() {
@@ -69,6 +70,7 @@ async function renderCard(pokemonList) {
     let pokemonUrl = pokemonList[i]['url'];
     let pokemonDetails = await fetchPokemonDetails(pokemonUrl);
     pokeJson.push(pokemonDetails);
+    pokeSound.push(pokeJson[i].cries.legacy);
     let types = pokemonDetails.types
       .map((type) => `<span class="types">${type.type.name}</span>`)
       .join('');
@@ -200,4 +202,15 @@ function startProgress(progressBarFillId, stopPoint) {
       clearInterval(intervalId);
     }
   }, 10);
+}
+
+// PLAY POKEMON SOUND
+function playPokeSound(i, event) {
+  event.preventDefault();
+  event.stopPropagation();
+  let audio = new Audio(pokeSound[i]);
+  audio.volume = 0.2;
+  audio.play().catch(function (error) {
+    console.log('Sound not avaible', error);
+  });
 }
