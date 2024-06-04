@@ -13,29 +13,6 @@ function init() {
   loadAndRenderData();
 }
 
-// FUNCTION SCROLL TO BOTTOM WHEN USER CLICKS BUTTON
-function scrollToBottom() {
-  setTimeout(() => {
-    window.scrollTo(0, document.body.scrollHeight);
-  }, '10');
-  document.getElementById('showAmount').innerHTML = currentIndex + ' / 151 Pokemon';
-}
-
-// SEARCH INPUT
-function searchPokemon() {
-  let inputField = document.getElementById('search');
-  let input = inputField.value.toLowerCase();
-  let cards = document.getElementById('content').getElementsByTagName('h3');
-
-  if (input.length < 3) {
-    Array.from(cards).forEach((card) => (card.parentNode.style.display = ''));
-  } else {
-    Array.from(cards).forEach((card) => {
-      card.parentNode.style.display = card.innerHTML.toLowerCase().includes(input) ? '' : 'none';
-    });
-  }
-}
-
 // LOAD AND RENDER DATA
 async function loadAndRenderData() {
   activateLoadAnimation();
@@ -95,6 +72,29 @@ function checkCurrentIndex() {
     document.getElementById('loadBtn').disabled = true;
   }
   disableLoadAnimation();
+}
+
+// FUNCTION SCROLL TO BOTTOM WHEN USER CLICKS BUTTON
+function scrollToBottom() {
+  setTimeout(() => {
+    window.scrollTo(0, document.body.scrollHeight);
+  }, '10');
+  document.getElementById('showAmount').innerHTML = currentIndex + ' / 151 Pokemon';
+}
+
+// SEARCH INPUT
+function searchPokemon() {
+  let inputField = document.getElementById('search');
+  let input = inputField.value.toLowerCase();
+  let cards = document.getElementById('content').getElementsByTagName('h3');
+
+  if (input.length < 3) {
+    Array.from(cards).forEach((card) => (card.parentNode.style.display = ''));
+  } else {
+    Array.from(cards).forEach((card) => {
+      card.parentNode.style.display = card.innerHTML.toLowerCase().includes(input) ? '' : 'none';
+    });
+  }
 }
 
 // FETCH DETAILED DATA FOR EACH POKEMON
