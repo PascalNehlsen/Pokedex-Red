@@ -29,9 +29,9 @@ function includeHTML() {
 // RENDER MY POKEMON HTML
 function renderHTML(pokemon, pokemonDetails, types, i) {
   return /*html*/ `
-    <div onclick="openCard(${i}); return false;"" id="card${i}" class="pokeCard ${pokemonDetails.types[0].type.name}">
+    <div draggable="true" onclick="openCard(${i}); return false;"" id="card${i}" class="pokeCard ${pokemonDetails.types[0].type.name}">
         <h3>${pokemonDetails.name}</h3>
-        <img loading="lazy" src="${pokemonDetails.sprites.other['dream_world'].front_default}" alt="${pokemon} picture"></img>
+        <img id="drag${i}" loading="lazy" ondragstart="drag(event)" src="${pokemonDetails.sprites.other['dream_world'].front_default}" alt="${pokemon} picture"></img>
         <div class="seperator"></div>
         <span>No: ${pokemonDetails.id}</span>
         <div class="typesContainer">${types}</div>

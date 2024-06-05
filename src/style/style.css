@@ -96,7 +96,8 @@ h3 {
 
 /* CONTENT */
 .content {
-  margin-top: 120px;
+  margin-top: 110px;
+  margin-left: 180px;
   padding-bottom: 120px;
   flex: 1;
   display: flex;
@@ -105,6 +106,40 @@ h3 {
   gap: 15px;
   align-items: center;
   max-width: 1920px;
+}
+
+.remove-btn {
+  position: relative;
+  top: -100px;
+  right: 10px;
+  color: var(--black);
+  border: 1px solid var(--black);
+  cursor: pointer;
+  border-radius: 4px;
+}
+
+.dropContainer {
+  border: 1px solid var(--black);
+  width: 150px;
+  position: fixed;
+  top: 110px;
+  left: 20px;
+  bottom: 110px;
+  text-align: center;
+  background-color: #f3eded;
+  z-index: 999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 30px;
+  padding: 10px;
+  border-radius: 10px;
+}
+
+.dropContainer img {
+  height: 100px;
+  width: 100px;
+  filter: drop-shadow(4px 0px 7px #000000);
 }
 
 .pokeCard {
@@ -555,6 +590,11 @@ h3 {
 
   .content {
     margin-top: 180px;
+    margin-left: unset;
+  }
+
+  .dropContainer {
+    display: none;
   }
 }
 

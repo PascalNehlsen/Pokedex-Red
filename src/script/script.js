@@ -11,6 +11,7 @@ function init() {
   pokeCard.innerHTML = '';
   pokeJson = [];
   loadAndRenderData();
+  loadFromLocalStorage();
 }
 
 // LOAD AND RENDER DATA
@@ -109,6 +110,66 @@ async function fetchPokemonDetails(url) {
   } catch (error) {
     console.error('Fetch problem:', error);
     return '';
+  }
+}
+
+// ALLOW DROP FUNCTION
+function allowDrop(ev) {
+  ev.preventDefault();
+}
+
+// DRAG FUNCTION
+function drag(ev) {
+  ev.dataTransfer.setData('text', ev.target.id);
+}
+
+// DROP FUNCTION
+function drop(ev) {
+  ev.preventDefault();
+  let data = ev.dataTransfer.getData('text');
+  let originalElement = document.getElementById(data);
+  let dropContainer = document.getElementById('dropContainer');
+  if (dropContainer.children.length >= 6) {
+    alert('You can only add up to 5 favorite Pokémon.');
+    return;
+  }
+  let clone = originalElement.cloneNode(true);
+  clone.id = '';
+  let containerDiv = document.createElement('div');
+  containerDiv.className = 'droppedElement';
+  containerDiv.appendChild(clone);
+  addRemoveButton(containerDiv);
+  ev.target.appendChild(containerDiv);
+  saveToLocalStorage();
+}
+
+// ADD REMOVE BUTTON TO FAV POKEMON
+function addRemoveButton(element) {
+  let removeBtn = document.createElement('button');
+  removeBtn.innerHTML = 'X';
+  removeBtn.className = 'remove-btn';
+  removeBtn.setAttribute('onclick', 'removeParentElement(this);');
+  element.appendChild(removeBtn);
+}
+
+// REMOVE POKEMON
+function removeParentElement(element) {
+  element.parentElement.remove();
+  saveToLocalStorage();
+}
+
+// SAVE FUNCTION
+function saveToLocalStorage() {
+  let container = document.getElementById('dropContainer');
+  localStorage.setItem('containerContent', container.innerHTML);
+}
+
+// LOAD FUNCTION
+function loadFromLocalStorage() {
+  let container = document.getElementById('dropContainer');
+  let content = localStorage.getItem('containerContent');
+  if (content) {
+    container.innerHTML = content;
   }
 }
 
