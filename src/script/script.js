@@ -60,7 +60,7 @@ async function renderCard(pokemonList) {
 function checkCurrentIndex() {
   currentIndex += imagesPerLoad;
   if (currentIndex == 20) {
-    document.getElementById('showAmount').innerHTML = currentIndex + ' / 151 Pokemon';
+    document.getElementById('showAmount').innerHTML = currentIndex + ' / 151';
   } else if (currentIndex > 20 && currentIndex <= 151) {
     scrollToBottom();
   } else {
@@ -79,7 +79,7 @@ function scrollToBottom() {
   setTimeout(() => {
     window.scrollTo(0, document.body.scrollHeight);
   }, '10');
-  document.getElementById('showAmount').innerHTML = currentIndex + ' / 151 Pokemon';
+  document.getElementById('showAmount').innerHTML = currentIndex + ' / 151';
 }
 
 // SEARCH INPUT

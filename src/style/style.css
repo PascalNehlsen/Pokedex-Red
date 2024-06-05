@@ -20,6 +20,8 @@ body {
   flex-direction: column;
   font-family: var(--global-font), var(--backup-font);
   background-color: var(--background-grey);
+  width: 100%;
+  align-items: center;
 }
 
 h2 {
@@ -49,33 +51,44 @@ h3 {
 
 .impressum {
   text-align: center;
+  margin-top: 100px;
+  min-height: 100%;
+  padding-bottom: 120px;
 }
 
 .impressum a {
   text-decoration: none;
-  color: var(--black);
+  color: var(--background-red);
 }
 
 /* HEADER */
 .header {
-  height: 100px;
   background-color: var(--background-red);
+  width: 100%;
+  height: 100px;
   display: flex;
-  align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   position: fixed;
-  top: 0;
-  right: 0;
   left: 0;
   z-index: 999;
 }
 
-.header img {
+.headerInside {
+  max-width: 1920px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 1920px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+
+.headerInside img {
   height: 70px;
   width: auto;
 }
 
-.header input {
+.headerInside input {
   padding: 15px 20px;
   border-radius: 10px;
   border: none;
@@ -92,6 +105,7 @@ h3 {
   justify-content: center;
   gap: 15px;
   align-items: center;
+  max-width: 1920px;
 }
 
 .pokeCard {
@@ -415,16 +429,25 @@ h3 {
 
 /* FOOTER */
 .footer {
+  background: var(--background-red);
   position: fixed;
   bottom: 0;
-  right: 0;
   left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
   height: 100px;
-  background: var(--background-red);
+}
+
+.footerInside {
+  max-width: 1920px;
+  width: 1920px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  overflow: hidden;
+  z-index: 999;
+  height: 100px;
 }
 
 .footerImage {
@@ -496,10 +519,6 @@ h3 {
   position: relative;
 }
 
-.footer div:last-of-type {
-  width: 100px;
-}
-
 .loadBtn:hover {
   border: 8px solid #fff;
   cursor: pointer;
@@ -517,18 +536,22 @@ h3 {
 
 /* MEDIA QUERIES */
 @media (max-width: 850px) {
-  .header img {
+  .headerInside img {
     height: 50px;
   }
 
-  .header input {
+  .headerInside input {
     padding: 10px 15px;
   }
 
-  .header {
+  .headerInside {
     flex-direction: column;
     gap: 10px;
     height: unset;
+  }
+
+  .header {
+    height: fit-content;
   }
 
   .content {
@@ -572,16 +595,26 @@ h3 {
   }
 }
 
+@media (max-width: 500px) {
+  .owner {
+    width: 100px;
+  }
+
+  #socialMedia {
+    width: 100px;
+  }
+}
+
 @media (max-width: 480px) {
   .btnLeft img {
     position: absolute;
-    top: 120px;
+    top: 30px;
     left: 10px;
   }
 
   .btnRight img {
     position: absolute;
-    top: 120px;
+    top: 30px;
     right: 10px;
   }
 }
