@@ -1,4 +1,8 @@
-// GET TEMPLATES
+/**
+ * Searches for all HTML elements with the attribute `w3-include-html` and loads the content 
+ * of the specified file into these elements. This function is called recursively to ensure 
+ * all contents are loaded.
+ */
 function includeHTML() {
   var z, i, elmnt, file, xhttp;
   z = document.getElementsByTagName('*');
@@ -26,20 +30,37 @@ function includeHTML() {
   }
 }
 
-// RENDER MY POKEMON HTML
+/**
+ * Generates the HTML code for a Pokémon card.
+ * 
+ * @param {string} pokemon - The name of the Pokémon.
+ * @param {Object} pokemonDetails - An object containing detailed information about the Pokémon.
+ * @param {string} types - A HTML string representing the types of the Pokémon.
+ * @param {number} i - The index of the Pokémon card.
+ * @returns {string} The HTML string representing the Pokémon card.
+ */
 function renderHTML(pokemon, pokemonDetails, types, i) {
   return /*html*/ `
-    <div draggable="true" onclick="openCard(${i}); return false;"" id="card${i}" class="pokeCard ${pokemonDetails.types[0].type.name}">
+    <div draggable="true" onclick="openCard(${i}); return false;" id="card${i}" class="pokeCard ${pokemonDetails.types[0].type.name}">
         <h3>${pokemonDetails.name}</h3>
         <img id="drag${i}" loading="lazy" ondragstart="drag(event)" src="${pokemonDetails.sprites.other['dream_world'].front_default}" alt="${pokemon} picture"></img>
         <div class="seperator"></div>
         <span>No: ${pokemonDetails.id}</span>
         <div class="typesContainer">${types}</div>
     </div>
-        `;
+  `;
 }
 
-// OPEN CARD HTML
+/**
+ * Generates the HTML code for an expanded view of a Pokémon card.
+ * 
+ * @param {number} i - The index of the Pokémon card.
+ * @param {string} abilities - A string representing the abilities of the Pokémon.
+ * @param {Object} height - An object containing the height information of the Pokémon.
+ * @param {number} height.feet - The height of the Pokémon in feet.
+ * @param {number} height.inches - The height of the Pokémon in inches.
+ * @returns {string} The HTML string representing the expanded Pokémon card.
+ */
 function openCardHTML(i, abilities, height) {
   return /*html*/ `
     <a class="btnLeft" onclick="lastCard(${i}); return false;" href="#"><img src="./src/img/arrow-left.png" alt=""></a> 
@@ -59,9 +80,7 @@ function openCardHTML(i, abilities, height) {
             </div>
 
             <div class="imgContainer">
-                <img loading="lazy" src="${
-                  pokeJson[i].sprites.other['dream_world'].front_default
-                }" alt=""></img>
+                <img loading="lazy" src="${pokeJson[i].sprites.other['dream_world'].front_default}" alt=""></img>
             </div>
             <div class="pokeDescription">
                 <span>No: ${String(pokeJson[i].id).padStart(5, '0')}</span>
@@ -78,9 +97,7 @@ function openCardHTML(i, abilities, height) {
     <div class="largeCard back ${pokeJson[i].types[0].type.name}">
         <div class="largeCard ${pokeJson[i].types[0].type.name}">
             <div class="gifContainer">
-                <img id="backGif" loading="lazy" src="${
-                  pokeJson[i].sprites.other['showdown'].back_default
-                }" alt=""></img>
+                <img id="backGif" loading="lazy" src="${pokeJson[i].sprites.other['showdown'].back_default}" alt=""></img>
                 <a onclick="playPokeSound(${i}, event)" href="#"><img class="scream" id="scream" src="./src/img/scream.png" alt=""></a> 
             </div>
             <div class="barContainer">

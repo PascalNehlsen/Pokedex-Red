@@ -1,11 +1,36 @@
-// GLOBAL
+/**
+ * The URL to fetch the first 151 Pokémon from the PokéAPI.
+ * @constant {string}
+ */
 const RED_URL = 'https://pokeapi.co/api/v2/pokemon/?offset=0&limit=151';
+
+/**
+ * The current index of loaded Pokémon.
+ * @type {number}
+ */
 let currentIndex = 0;
+
+/**
+ * The number of Pokémon images to load per batch.
+ * @constant {number}
+ */
 const imagesPerLoad = 20;
+
+/**
+ * An array to store the details of loaded Pokémon.
+ * @type {Array}
+ */
 let pokeJson = [];
+
+/**
+ * An array to store the sound URLs of loaded Pokémon.
+ * @type {Array}
+ */
 let pokeSound = [];
 
-// ONLOAD FUNCTION
+/**
+ * Initializes the application by clearing the content, resetting data arrays, and loading data.
+ */
 function init() {
   let pokeCard = document.getElementById('content');
   pokeCard.innerHTML = '';
@@ -14,7 +39,10 @@ function init() {
   loadFromLocalStorage();
 }
 
-// LOAD AND RENDER DATA
+/**
+ * Loads and renders Pokémon data by fetching it from the API and then calling the render function.
+ * Displays a loading animation while data is being fetched.
+ */
 async function loadAndRenderData() {
   activateLoadAnimation();
   let data = await loadData();
@@ -25,7 +53,10 @@ async function loadAndRenderData() {
   }
 }
 
-// LOAD ALL DATA
+/**
+ * Fetches Pokémon data from the PokéAPI.
+ * @returns {Object} The JSON response from the API containing Pokémon data.
+ */
 async function loadData() {
   try {
     let response = await fetch(RED_URL);
@@ -39,7 +70,10 @@ async function loadData() {
   }
 }
 
-// RENDER MY POKEMON
+/**
+ * Renders a batch of Pokémon cards onto the page.
+ * @param {Array} pokemonList - The list of Pokémon to render.
+ */
 async function renderCard(pokemonList) {
   let pokeCard = document.getElementById('content');
   let endIndex = currentIndex + imagesPerLoad;
@@ -57,7 +91,10 @@ async function renderCard(pokemonList) {
   checkCurrentIndex();
 }
 
-// CHECK CURRENTINDEX
+/**
+ * Checks the current index and updates the UI accordingly.
+ * If all Pokémon are loaded, disables the load button.
+ */
 function checkCurrentIndex() {
   currentIndex += imagesPerLoad;
   if (currentIndex == 20) {
@@ -75,7 +112,9 @@ function checkCurrentIndex() {
   disableLoadAnimation();
 }
 
-// FUNCTION SCROLL TO BOTTOM WHEN USER CLICKS BUTTON
+/**
+ * Scrolls the page to the bottom after a slight delay.
+ */
 function scrollToBottom() {
   setTimeout(() => {
     window.scrollTo(0, document.body.scrollHeight);
@@ -83,7 +122,9 @@ function scrollToBottom() {
   document.getElementById('showAmount').innerHTML = currentIndex + ' / 151';
 }
 
-// SEARCH INPUT
+/**
+ * Searches for Pokémon by name based on user input and filters the displayed cards.
+ */
 function searchPokemon() {
   let inputField = document.getElementById('search');
   let input = inputField.value.toLowerCase();
@@ -98,7 +139,11 @@ function searchPokemon() {
   }
 }
 
-// FETCH DETAILED DATA FOR EACH POKEMON
+/**
+ * Fetches detailed Pokémon information from the provided URL.
+ * @param {string} url - The URL to fetch Pokémon details from.
+ * @returns {Object} The JSON response containing Pokémon details.
+ */
 async function fetchPokemonDetails(url) {
   try {
     let response = await fetch(url);
@@ -113,17 +158,27 @@ async function fetchPokemonDetails(url) {
   }
 }
 
-// ALLOW DROP FUNCTION
+/**
+ * Allows an element to be dropped by preventing the default handling of the event.
+ * @param {Event} ev - The drop event.
+ */
 function allowDrop(ev) {
   ev.preventDefault();
 }
 
-// DRAG FUNCTION
+/**
+ * Handles the drag event by setting the data to be transferred.
+ * @param {Event} ev - The drag event.
+ */
 function drag(ev) {
   ev.dataTransfer.setData('text', ev.target.id);
 }
 
-// DROP FUNCTION
+/**
+ * Handles the drop event by appending a cloned element to the drop container.
+ * Limits the number of Pokémon that can be added to favorites.
+ * @param {Event} ev - The drop event.
+ */
 function drop(ev) {
   ev.preventDefault();
   let data = ev.dataTransfer.getData('text');
@@ -143,7 +198,10 @@ function drop(ev) {
   saveToLocalStorage();
 }
 
-// ADD REMOVE BUTTON TO FAV POKEMON
+/**
+ * Adds a remove button to the given element.
+ * @param {HTMLElement} element - The element to add a remove button to.
+ */
 function addRemoveButton(element) {
   let removeBtn = document.createElement('button');
   removeBtn.innerHTML = 'X';
@@ -152,19 +210,26 @@ function addRemoveButton(element) {
   element.appendChild(removeBtn);
 }
 
-// REMOVE POKEMON
+/**
+ * Removes the parent element of the given element and saves the updated content to local storage.
+ * @param {HTMLElement} element - The element whose parent will be removed.
+ */
 function removeParentElement(element) {
   element.parentElement.remove();
   saveToLocalStorage();
 }
 
-// SAVE FUNCTION
+/**
+ * Saves the current content of the drop container to local storage.
+ */
 function saveToLocalStorage() {
   let container = document.getElementById('dropContainer');
   localStorage.setItem('containerContent', container.innerHTML);
 }
 
-// LOAD FUNCTION
+/**
+ * Loads the saved content from local storage into the drop container.
+ */
 function loadFromLocalStorage() {
   let container = document.getElementById('dropContainer');
   let content = localStorage.getItem('containerContent');
@@ -173,7 +238,11 @@ function loadFromLocalStorage() {
   }
 }
 
-// METER TO FEET AND INCH
+/**
+ * Converts meters to feet and inches.
+ * @param {number} meters - The height in meters.
+ * @returns {Object} An object containing the height in feet and inches.
+ */
 function convertMetersToFeetAndInches(meters) {
   const cm = meters * 100;
   const totalInches = cm / 2.54;
@@ -182,7 +251,10 @@ function convertMetersToFeetAndInches(meters) {
   return { feet, inches };
 }
 
-// OPEN LARGE CARD
+/**
+ * Opens a detailed view of the Pokémon card and displays the Pokémon's abilities and height.
+ * @param {number} i - The index of the Pokémon in the pokeJson array.
+ */
 function openCard(i) {
   document.body.style.overflow = 'hidden';
   document.getElementById('popUpContainer').style.display = '';
@@ -193,7 +265,10 @@ function openCard(i) {
   document.getElementById('popUpContainer').addEventListener('click', closeCard);
 }
 
-// CLOSE LARGE CARD
+/**
+ * Closes the detailed Pokémon card view if the click event occurs outside the card.
+ * @param {Event} event - The click event.
+ */
 function closeCard(event) {
   if (event.target.id === 'popUpContainer') {
     document.body.style.overflow = '';
@@ -202,19 +277,27 @@ function closeCard(event) {
   }
 }
 
-// DISABLE LOAD ANMIATION
+/**
+ * Disables the loading animation and allows scrolling.
+ */
 function disableLoadAnimation() {
   document.body.style.overflow = '';
   document.getElementById('loadAnimation').style.display = 'none';
 }
 
-// ACTIVATE LOAD ANIMATION
+/**
+ * Activates the loading animation and disables scrolling.
+ */
 function activateLoadAnimation() {
   document.body.style.overflow = 'hidden';
   document.getElementById('loadAnimation').style.display = '';
 }
 
-// NEXT LARGE CARD
+/**
+ * Opens the next Pokémon card in the detailed view.
+ * If the end of the list is reached, loops back to the beginning.
+ * @param {number} i - The current index of the Pokémon.
+ */
 function nextCard(i) {
   i++;
   if (i >= pokeJson.length) {
@@ -225,7 +308,11 @@ function nextCard(i) {
   }
 }
 
-// LAST LARGE CARD
+/**
+ * Opens the previous Pokémon card in the detailed view.
+ * If the beginning of the list is reached, loops back to the end.
+ * @param {number} i - The current index of the Pokémon.
+ */
 function lastCard(i) {
   if (i == 0) {
     i = pokeJson.length - 1;
@@ -236,7 +323,11 @@ function lastCard(i) {
   }
 }
 
-// START FUNCTION ON HOVER LARGE CARD
+/**
+ * Initializes the progress bars for the selected Pokémon's stats.
+ * Each progress bar represents a different stat of the Pokémon.
+ * @param {number} i - The index of the Pokémon in the pokeJson array.
+ */
 function start(i) {
   startProgress('progress-bar-fill-1', pokeJson[i].stats[1].base_stat);
   startProgress('progress-bar-fill-2', pokeJson[i].stats[2].base_stat);
@@ -245,14 +336,22 @@ function start(i) {
   startProgress('progress-bar-fill-5', pokeJson[i].stats[5].base_stat);
 }
 
-// FILL PROGRESS BAR
+/**
+ * Updates the width and text of a progress bar element based on the current progress.
+ * @param {number} progress - The current progress value to display.
+ * @param {string} progressBarFillId - The ID of the progress bar element to update.
+ */
 function updateProgressBar(progress, progressBarFillId) {
   const progressBarFill = document.getElementById(progressBarFillId);
   progressBarFill.style.width = `${progress}%`;
   progressBarFill.innerText = `${progress}`;
 }
 
-// UPDATE PROGRESS BAR
+/**
+ * Animates a progress bar by incrementally increasing its width until it reaches the stop point.
+ * @param {string} progressBarFillId - The ID of the progress bar element to animate.
+ * @param {number} stopPoint - The value at which the progress bar should stop.
+ */
 function startProgress(progressBarFillId, stopPoint) {
   let progress = 0;
 
@@ -265,13 +364,18 @@ function startProgress(progressBarFillId, stopPoint) {
   }, 10);
 }
 
-// PLAY POKEMON SOUND
+/**
+ * Plays the sound associated with a specific Pokémon when its card is clicked.
+ * Prevents the default click behavior and stops the click event from propagating further.
+ * @param {number} i - The index of the Pokémon in the pokeSound array.
+ * @param {Event} event - The event object associated with the click.
+ */
 function playPokeSound(i, event) {
   event.preventDefault();
   event.stopPropagation();
   let audio = new Audio(pokeSound[i]);
   audio.volume = 0.2;
   audio.play().catch(function (error) {
-    console.log('Sound not avaible', error);
+    console.log('Sound not available', error);
   });
 }
