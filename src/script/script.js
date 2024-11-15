@@ -181,22 +181,36 @@ function drag(ev) {
  */
 function drop(ev) {
   ev.preventDefault();
+
   let data = ev.dataTransfer.getData('text');
   let originalElement = document.getElementById(data);
   let dropContainer = document.getElementById('dropContainer');
+
   if (dropContainer.children.length >= 6) {
     alert('You can only add up to 5 favorite Pokémon.');
     return;
   }
+
+  for (let child of dropContainer.children) {
+    if (child.dataset.pokemonId === data) {
+      alert('This Pokémon is already in your favorites!');
+      return;
+    }
+  }
+
   let clone = originalElement.cloneNode(true);
   clone.id = '';
   let containerDiv = document.createElement('div');
   containerDiv.className = 'droppedElement';
+  containerDiv.dataset.pokemonId = data;
+
   containerDiv.appendChild(clone);
   addRemoveButton(containerDiv);
   ev.target.appendChild(containerDiv);
+
   saveToLocalStorage();
 }
+
 
 /**
  * Adds a remove button to the given element.
